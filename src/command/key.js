@@ -1,6 +1,6 @@
-import { circleOfFifth, allNotes } from '../constant.js';
+const { circleOfFifth, allNotes } = require('../constant.js');
 
-export class Key {
+class Key {
     constructor(root, type) {
         this.root = root.toLowerCase();
         this.type = type.toLowerCase();
@@ -54,3 +54,5 @@ export class Key {
         return result;
     }
 }
+
+module.exports = { Key };

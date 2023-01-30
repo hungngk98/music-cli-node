@@ -1,6 +1,6 @@
-import Readline from 'readline';
-import { Key } from './src/command/key.js';
-import { promisify } from 'util';
+const Readline = require('readline');
+const {Key} = require('./src/command/key.js')
+const {promisify} = require('util');
 
 async function main() {
     const reader = Readline.createInterface({
@@ -42,6 +42,8 @@ async function main() {
     console.log('---');
 }
 
-while (true) {
-    await main();
-}
+(async () => {
+    while (true) {
+        await main();
+    }
+})()
