@@ -1,6 +1,7 @@
 const Readline = require('readline');
-const {Key} = require('./src/command/key.js')
-const {promisify} = require('util');
+const { Key } = require('./src/command/key.js');
+const { promisify } = require('util');
+const { Chord } = require('./src/command/chord.js');
 
 async function main() {
     const reader = Readline.createInterface({
@@ -24,7 +25,26 @@ async function main() {
                 .find()
                 .map((item) => item[0].toUpperCase() + (item[1] ?? ''));
 
-            console.log(`> Notes in key ${root} ${type} are: ${notes.join(', ')}`);
+            console.log(
+                `> Notes in key "${root} ${type}" are: ${notes.join(', ')}`
+            );
+            break;
+        }
+
+        case 'chord': {
+            if (args[1] == 'all') {
+                const str = Chord.allChords()
+                    .map((el) => el[0] + (el[1] ? `(${el[1]})` : ''))
+                    .join(', ');
+                console.log('> All chords supported:', str);
+                break;
+            }
+
+            const name = args[1];
+            const chord = new Chord(name);
+            const notes = chord.find();
+
+            console.log(`> Notes in chord "${name}": ${notes.join(', ')}`);
             break;
         }
 
@@ -46,4 +66,4 @@ async function main() {
     while (true) {
         await main();
     }
-})()
+})();
